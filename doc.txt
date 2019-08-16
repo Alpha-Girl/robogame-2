@@ -1,0 +1,54 @@
+//循线头文件trailing.h
+
+//可用函数
+int8_t Check_Err_Num(uint8_t dir, uint8_t ModelNo);
+void trailing(uint8_t dir);
+
+//使用方法
+
+int8_t x = Check_Err_Num(0, 0);
+/* 
+第一个参数表示车体移动方向，第二个参数表示读取的红外模块的编号
+返回值类型int8_t，取值有0，1，2，-1，-2，-3，分别代表在按移动方向前进时，红外模块识别到的六种情况
+0：3灯全在线内；1：1灯向右偏出；2：2灯向右偏出；负号表示向左；-3代表全部灯偏出，不分方向
+*/
+
+trailing(forward);
+/* 
+中间可用leftward、backward、rightward替换，分别向四个方向循线移动，具体见头文件定义及cpp实现
+*/
+
+
+
+//移动控制头文件move.h
+
+//可用函数
+void rotate_car(int16_t degree);
+void stop();
+void calc_rotating_speed(int16_t Motion_Parameters[], int16_t rotating_speed[]);
+void set_pin(int16_t rotating_speed[]);
+
+//使用方法
+
+rotate_car(180);
+/*
+旋转车体，参数表示角度，从-360到360，正值表示顺时针旋转，负值表示逆时针
+具体见move.cpp第39行，实现方式比较蠢，第46行和52行delay语句中的1000需要根据实验更改。。。
+*/
+
+stop();
+/*
+设置引脚状态，停止车体
+*/
+
+int16_t Motion_Parameters[3];
+int16_t rotating_speed[4];
+calc_rotating_speed(int16_t Motion_Parameters[], int16_t rotating_speed[]);
+set_pin(rotating_speed);
+/*
+calc_rotating_speed由给定3个方向的速度计算四个轮子的运动速度
+Motion_Parameters数组为车体移动参数，三个元素表示vx，vy和ω,取值均为-255到255，传参时三个参数必须有值
+rotating_speed数组为四个轮子的转速，传参时rotating_speed可为空数组
+set_pin由传递的轮子转速设置引脚输出给控制芯片信号
+*/
+
