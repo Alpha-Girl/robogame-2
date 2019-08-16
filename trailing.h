@@ -35,5 +35,6 @@ int8_t Check_Err_Num(uint8_t dir, uint8_t ModelNo);
 void adapt(int8_t f_err_no, int8_t b_err_no, int16_t motion_para[], uint8_t dir);
 //void adjust_rotating_speed(int16_t rotating_speed[]);//相关函数已移动到move.cpp中
 void trailing(uint8_t dir);
+void reset(int16_t default_rotating_speed[]);
 
 #endif

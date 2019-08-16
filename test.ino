@@ -40,7 +40,7 @@ void setup()
 
 void loop()
 {
-    trailing_straight();
+    trailing(forward);
     if (rfid.read(BLOCK_NO, data))
         if (data[0] == 1)
         {
